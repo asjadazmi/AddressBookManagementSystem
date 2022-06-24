@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class AddressBookService {
 	static Scanner sc=new Scanner(System.in);
-	static ArrayList<Contacts> arrayOfContacts = new ArrayList<Contacts>();
+	public static ArrayList<Contacts> arrayOfContacts = new ArrayList<Contacts>();
 	public static void addContact() {
 		System.out.println("Please enter your first name :");
 	    String first_name = sc.next();
@@ -33,7 +33,7 @@ public class AddressBookService {
 	
 	public static int edit(String name) {
 		for(Contacts contact : arrayOfContacts) {
-			if(name.compareToIgnoreCase(contact.getFirst_name())==0);{
+			if(name.compareToIgnoreCase(contact.getFirst_name())==0){
 				return arrayOfContacts.indexOf(contact);
 			}
 		}
@@ -53,6 +53,30 @@ public class AddressBookService {
 			addContact();
 		}
 		
+		
+		
+	}
+	public static int delete(String name) {
+		for(Contacts contact : arrayOfContacts) {
+			if(name.compareToIgnoreCase(contact.getFirst_name())==0){
+				return arrayOfContacts.indexOf(contact);
+			}
+		}
+		return -1;
+	}
+	public static void deleteContact() {
+		System.out.println("please enter the name which you want to delete");
+		String name=sc.next();
+		int choice=delete(name);
+		
+		if(choice == -1) {
+			System.out.println("No such contact are found ");
+			
+		}else {
+			 
+			arrayOfContacts.remove(choice);
+			System.out.println("contact deleted successfully!!");
+		}
 		
 	}
 	  public static void display()

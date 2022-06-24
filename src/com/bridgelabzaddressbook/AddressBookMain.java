@@ -5,6 +5,7 @@ public class AddressBookMain {
 		System.out.println("welcome to the address book problem");
 		AddressBookService.addContact();
 		AddressBookService.editContact();
+		AddressBookService.deleteContact();
 		AddressBookService.display();
 	}
 }
