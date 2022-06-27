@@ -1,14 +1,12 @@
 package com.bridgelabzaddressbook;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-
-
 public class AddressBookService {
 	static Scanner sc=new Scanner(System.in);
-	public static ArrayList<Contacts> arrayOfContacts = new ArrayList<Contacts>();
-	public static void addContact() {
+	 static List<Contacts> arrayOfContacts = new ArrayList<Contacts>();
+	public static Contacts addContact() {
 		System.out.println("Please enter your first name :");
 	    String first_name = sc.next();
 	    System.out.println("Please enter your last name :");
@@ -27,10 +25,17 @@ public class AddressBookService {
 	    System.out.println("Please enter your email id :");
 	    String email = sc.next();
 	    Contacts contact=new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email);
-	    arrayOfContacts.add(contact);
-	    
+//	    arrayOfContacts.add(contact);
+		return contact;
 	}
-	
+	public static void addContacts() {
+		System.out.println("how many contact you want to add");
+		int n=sc.nextInt();
+		for(int i=0;i<n;i++) {
+			arrayOfContacts.add(addContact());
+			System.out.println();
+		}
+	}
 	public static int edit(String name) {
 		for(Contacts contact : arrayOfContacts) {
 			if(name.compareToIgnoreCase(contact.getFirst_name())==0){
@@ -39,7 +44,6 @@ public class AddressBookService {
 		}
 		return -1;
 	}
-	
 	public static void editContact() {
 		System.out.println("please enter the name which you want to edit");
 		String name=sc.next();
@@ -52,9 +56,6 @@ public class AddressBookService {
 			System.out.println("contact found please edit your contact");
 			addContact();
 		}
-		
-		
-		
 	}
 	public static int delete(String name) {
 		for(Contacts contact : arrayOfContacts) {
@@ -77,7 +78,6 @@ public class AddressBookService {
 			arrayOfContacts.remove(choice);
 			System.out.println("contact deleted successfully!!");
 		}
-		
 	}
 	  public static void display()
 	    {
