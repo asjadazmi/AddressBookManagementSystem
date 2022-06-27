@@ -25,7 +25,7 @@ public class AddressBookService {
 	    System.out.println("Please enter your email id :");
 	    String email = sc.next();
 	    Contacts contact=new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email);
-//	    arrayOfContacts.add(contact);
+	    arrayOfContacts.add(contact);
 		return contact;
 	}
 	public static void addContacts() {
@@ -33,7 +33,7 @@ public class AddressBookService {
 		int n=sc.nextInt();
 		for(int i=0;i<n;i++) {
 			arrayOfContacts.add(addContact());
-			System.out.println();
+			System.out.println(i++);
 		}
 	}
 	public static int edit(String name) {
@@ -44,6 +44,7 @@ public class AddressBookService {
 		}
 		return -1;
 	}
+	
 	public static void editContact() {
 		System.out.println("please enter the name which you want to edit");
 		String name=sc.next();
@@ -56,6 +57,9 @@ public class AddressBookService {
 			System.out.println("contact found please edit your contact");
 			addContact();
 		}
+		
+		
+		
 	}
 	public static int delete(String name) {
 		for(Contacts contact : arrayOfContacts) {
@@ -78,6 +82,7 @@ public class AddressBookService {
 			arrayOfContacts.remove(choice);
 			System.out.println("contact deleted successfully!!");
 		}
+		
 	}
 	  public static void display()
 	    {
@@ -87,4 +92,5 @@ public class AddressBookService {
 	            System.out.println(contact);
 	        }
 	    }
+	
 }
