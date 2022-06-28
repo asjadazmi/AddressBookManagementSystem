@@ -36,8 +36,37 @@ public class Contacts {
 	public static void setFirst_name(String first_name) {
 		Contacts.first_name = first_name;
 	}
+	
 
 	
+
+	/**
+	 * @return the city
+	 */
+	public static String getCity() {
+		return city;
+	}
+
+	/**
+	 * @param city the city to set
+	 */
+	public static void setCity(String city) {
+		Contacts.city = city;
+	}
+
+	/**
+	 * @return the state
+	 */
+	public static String getState() {
+		return state;
+	}
+
+	/**
+	 * @param state the state to set
+	 */
+	public static void setState(String state) {
+		Contacts.state = state;
+	}
 
 	public String toString()
     {

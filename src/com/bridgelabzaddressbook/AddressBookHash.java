@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 public class AddressBookHash {
 	HashMap<String, AddressBookService> addressBook = new HashMap<>();
-Scanner sc = new Scanner(System.in);
+     Scanner sc = new Scanner(System.in);
 
    
-    public AddressBookService findAddressBook(String adBookName) {
+    public AddressBookService findAddressBook(String addBookName) {
 
         for (Map.Entry<String, AddressBookService> itrator : addressBook.entrySet()) {
-            if (itrator.getKey().equalsIgnoreCase(adBookName)) {
+            if (itrator.getKey().equalsIgnoreCase(addBookName)) {
                 return itrator.getValue();
             }
         }
@@ -23,7 +23,7 @@ Scanner sc = new Scanner(System.in);
     }
     public void addAddressBook() {
 
-        System.out.println(" enter the name of the address book which you want to see ");
+        System.out.println(" enter the name of the address  ");
         String name = sc.next();
 
         if (addressBook.get(name) != null) {
@@ -44,7 +44,7 @@ Scanner sc = new Scanner(System.in);
     		System.out.println("this is not exist");
     		return;
     	}
-    	addBook.addContact();
+    	addBook.addContacts();
     }
     public void editContact() {
     	System.out.println("please enter the address book ");
@@ -78,5 +78,20 @@ Scanner sc = new Scanner(System.in);
     	addBook.display();
     	
     }
+    public void find(String name, String state, String City) {
+    	
+
+    	addressBook.values().stream().forEach((addBook) -> {
+            addBook.addressBookMang.stream().filter(contact -> {
+
+                        if (City.equalsIgnoreCase("city"))
+                            return contact.getCity().equalsIgnoreCase(state);
+                        else
+                            return contact.getState().equalsIgnoreCase(state);
+                    }).filter(contact -> contact.getFirst_name().equalsIgnoreCase(name))
+                    .forEach(contact -> System.out.println(contact));
+        });
+    }
+    
     
     }

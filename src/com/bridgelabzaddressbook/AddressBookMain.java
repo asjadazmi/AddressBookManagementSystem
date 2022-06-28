@@ -9,12 +9,11 @@ public class AddressBookMain {
 		Scanner sc =new Scanner(System.in);
 		int option;
 		while(true) {
-			System.out.println("what operation you want perform\n 1)Add Contact\n 2)edit contact\n 3)delete\n4)Display contact\n5) Add address book");
+			System.out.println("what operation you want perform\n 1)Add AddressBook\n 2)edit contact\n 3)delete\n4)Display contact\n5) add contact\n5) search by city");
 			option =sc.nextInt();
 			switch(option) {
 			case 1:
-				addressBookser.addContact();
-				
+				addressBookser.addAddressBook();
 				break;
 			case 2:
 				addressBookser.editContact();
@@ -26,7 +25,15 @@ public class AddressBookMain {
 				addressBookser.display();
 				break;
 			case 5:
-				addressBookser.addAddressBook();
+				addressBookser.addContact();
+			case 6:
+			    System.out.print(" please enter the name of person ");
+                String name = sc.next();
+                System.out.print(" enter to search by city: ");
+                String City = sc.next();
+                System.out.println("please enter state");
+                String state=sc.next();
+                addressBookser.find(name, state, City);
 			default:
 				System.out.println("please enter the correct option");
 			}
