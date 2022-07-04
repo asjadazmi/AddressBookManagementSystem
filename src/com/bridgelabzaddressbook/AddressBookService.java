@@ -5,7 +5,7 @@ import java.util.Map.Entry;
 import com.bridgelabzaddressbook.AddressBookService.InterCheckDuplicate;
 public class AddressBookService {
 	static Scanner sc=new Scanner(System.in);
-	public static ArrayList<Contacts> listOfContacts;
+	public static ArrayList<Contacts> listOfContacts=new ArrayList<>();
 	public static HashMap<String,List<Contacts>> hashAddressBook=new HashMap<>();
 	public static HashMap<String, String> dictforcity=new HashMap<>();
 	public static HashMap<String, String> dictforstate=new HashMap<>();
@@ -67,6 +67,16 @@ public class AddressBookService {
 	    listOfContacts.add(new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email));
         hashAddressBook.put(bookName, listOfContacts);
 	}
+	public static Contacts addContact() {
+		System.out.println("how many contact you want to add");
+		int n=sc.nextInt();
+		for(int i=0;i<n;i++) {
+			listOfContacts.add(addContact());
+			System.out.println();
+		}
+		return null;
+	}
+	
 	   public static void delete() {
 	    	System.out.println("Enter the address book you want to edit");
 	    	String deleteBook=sc.next();
@@ -140,7 +150,15 @@ public class AddressBookService {
         	long countstate=dictforstate.entrySet().stream().map(a->a.getValue().equals(state)).count();
         	System.out.println("count state by person"+countstate);
         }
-        
+        public static void sortAlphabatically() {
+        	System.out.println("Enter the name of adddress book");
+        	String name=sc.next();
+        	if(hashAddressBook.get(name).isEmpty()) {
+        		System.out.println("Book is empty");
+        		return;
+        	}
+        	hashAddressBook.get(name).stream().sorted((c1,c2)->c1.getFirst_name().compareToIgnoreCase(c2.getFirst_name())).forEach(c->System.out.println(c));
+        }
 	    
 	    public static void display() {
 	    	System.out.println("Enter the name of the address book you want see");

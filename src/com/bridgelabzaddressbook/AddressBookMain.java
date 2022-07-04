@@ -8,7 +8,7 @@ public class AddressBookMain {
 			Scanner sc=new Scanner(System.in);
 			System.out.println();
 	        while(true) {
-	            System.out.println(" Enter the choice:\n 1. Add Address Book\n 2. Add contacts\n 3. Display contacts\n 4. Edit contact\n 5. Delete Contac\n 6. View by city\n 7.view by state");
+	            System.out.println(" Enter the choice:\n 1. Add Address Book\n 2. Add contacts\n 3. Display contacts\n 4. Edit contact\n 5. Delete Contac\n 6. View by city\n 7.view by state\n 8.sort Alphabatically");
 	            int choice = sc.nextInt();
 	        switch(choice) {
 	        case 1:
@@ -35,6 +35,8 @@ public class AddressBookMain {
 	        	System.out.println("Enter the state");
 	        	String State=sc.next();
 	        	AddressBookService.viewState(State);
+	        case 8:
+	        	AddressBookService.sortAlphabatically();
 	        default:
 	        	System.out.println("Enter valid choice");
 	        }
