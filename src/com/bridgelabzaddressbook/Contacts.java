@@ -64,6 +64,20 @@ public class Contacts {
 	}
 
 	/**
+	 * @return the zip
+	 */
+	public static int getZip() {
+		return zip;
+	}
+
+	/**
+	 * @param zip the zip to set
+	 */
+	public static void setZip(int zip) {
+		Contacts.zip = zip;
+	}
+
+	/**
 	 * @return the state
 	 */
 	public static String getState() {
