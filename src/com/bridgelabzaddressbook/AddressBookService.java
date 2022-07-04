@@ -131,10 +131,14 @@ public class AddressBookService {
 	    	
 	    }
         public static void viewCity(String city) {
-	    	dictforcity.entrySet().stream().filter(book->book.getValue().equals(city)).forEach(book->System.out.println(book));
+	    	dictforcity.entrySet().stream().filter(a->a.getValue().equals(city)).forEach(a->System.out.println(a));
+	    	long countCity=dictforcity.entrySet().stream().map(a->a.getValue().equals(city)).count();
+	    	System.out.println("City count by person"+countCity);
 	    }
         public static void viewState(String state) {
-        	dictforstate.entrySet().stream().filter(book->book.getValue().equals(state)).forEach(book->System.out.println(book));	
+        	dictforstate.entrySet().stream().filter(a->a.getValue().equals(state)).forEach(a->System.out.println(a));	
+        	long countstate=dictforstate.entrySet().stream().map(a->a.getValue().equals(state)).count();
+        	System.out.println("count state by person"+countstate);
         }
         
 	    
