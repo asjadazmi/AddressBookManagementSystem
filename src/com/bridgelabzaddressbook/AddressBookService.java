@@ -1,14 +1,45 @@
 package com.bridgelabzaddressbook;
+import java.util.*;
+import java.util.Map.Entry;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Scanner;
+import com.bridgelabzaddressbook.AddressBookService.InterCheckDuplicate;
 public class AddressBookService {
 	static Scanner sc=new Scanner(System.in);
-	public static HashSet<Contacts> addressBookMang=new HashSet<Contacts>();
-//	 static List<Contacts> arrayOfContacts = new ArrayList<Contacts>();
-	public static Contacts addContact() {
+	public static ArrayList<Contacts> listOfContacts;
+	public static HashMap<String,List<Contacts>> hashAddressBook=new HashMap<>();
+	public static HashMap<String, String> dictforcity=new HashMap<>();
+	public static HashMap<String, String> dictforstate=new HashMap<>();
+    public static ArrayList<Contacts> findAddressBook(String name){
+		for(Entry<String, List<Contacts>> iterator:hashAddressBook.entrySet()) {
+			if(iterator.getKey().equals(name)) {
+				return (ArrayList<Contacts>) iterator.getValue();
+			}
+		}
+	
+	return null;
+}
+	public static String addAddressBook(){
+		System.out.println("Please Enter the Address book name");
+		String addressBookName=sc.next();
+		if(findAddressBook(addressBookName)!=null) {
+			System.out.println("this book exists");
+			System.out.println(hashAddressBook.get(addressBookName));
+			return null;
+		}
+		return addressBookName;
+		
+	}
+	public static int findContactAddress(ArrayList<Contacts> arrayList) {
+		System.out.println("Enter the name");
+		String editname=sc.next();
+		for(Contacts contact:arrayList) {
+			if(editname.compareToIgnoreCase(contact.getFirst_name())==0){
+				return arrayList.indexOf(contact);
+			}
+		}
+		return 0;
+	}
+	public static void addContacts(String bookName) {
 		System.out.println("Please enter your first name :");
 	    String first_name = sc.next();
 	    System.out.println("Please enter your last name :");
@@ -27,73 +58,95 @@ public class AddressBookService {
 	    System.out.println("Please enter your email id :");
 	    String email = sc.next();
 	    Contacts contact=new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email);
-//	    arrayOfContacts.add(contact);
-		return contact;
+	    if(findAddressBook(bookName)!=null) {
+	         hashAddressBook.get(bookName).add(contact);
+	         return;
+	    }
+	    listOfContacts =new ArrayList<Contacts>();
+	    listOfContacts.add(contact);
+	    listOfContacts.add(new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email));
+        hashAddressBook.put(bookName, listOfContacts);
 	}
-	public static void addContacts() {
-		System.out.println("how many contact you want to add");
-		int n=sc.nextInt();
-		for(int i=0;i<n;i++) {
-			Contacts con=addContact();
-			if(!addressBookMang.add(con)) {
-				System.out.println("name already exists");
-				i--;
-				continue;
-			}
-			System.out.println();
-		}
-	}
-	public Contacts findContacts() {
-		System.out.print(" Please enter the first name: ");
-        String firstName = sc.next();
-
-        for (Contacts contact : addressBookMang) {
-            if (firstName.compareToIgnoreCase(contact.getFirst_name()) == 0) {
-                return contact;
-            }
+	   public static void delete() {
+	    	System.out.println("Enter the address book you want to edit");
+	    	String deleteBook=sc.next();
+	    	ArrayList<Contacts> list=findAddressBook(deleteBook);
+	    	if(list.isEmpty()) {
+	    		System.out.println("this address book is empty");
+	    		return;
+	    	}
+	    	else if(list==null) {
+	    		System.out.println("This address book desenot exist");
+	    		return;
+	    	}
+	    	int ans=findContactAddress(list);
+	    	if(ans==0) {
+	    		System.out.println("Address not found");
+	    		return;
+	    	}System.out.println("Deleted the Scussefully");
+	    	list.remove(ans);
+	    }
+	    public static void edit() {
+	    	System.out.println("Enter the address book you want to edit");
+	    	String editBook=sc.next();
+	    	ArrayList<Contacts> list=findAddressBook(editBook);
+	    	if(list.isEmpty()) {
+	    		System.out.println("this address book is empty");
+	    		return;
+	    	}
+	    	else if(list==null) {
+	    		System.out.println("This address book not exist");
+	    		return;
+	    	}
+	    	int ans=findContactAddress(list);
+	    	if(ans==0) {
+	    		System.out.println("Address not found");
+	    		return;
+	    	}System.out.println("found the contact");
+	    	list.remove(ans);
+	    	addContacts(editBook);
+	    }
+	    @FunctionalInterface
+	    interface InterCheckDuplicate{
+	        boolean checkDuplicate(String First_name,String Last_name);
+	    }
+	    public static boolean duplicate(String bookName,String First_name,String Last_name) {
+	    	if(hashAddressBook.get(bookName)==null) {
+	    		return true;
+	    	}
+	    	ArrayList<Contacts> list=(ArrayList<Contacts>) hashAddressBook.get(bookName);
+	    	HashMap<String, String> name=new HashMap<>();
+	    	for(Contacts contact:listOfContacts) {
+	    		name.put(contact.getFirst_name(),contact.getLast_name());
+	    		
+	    	}
+	    	InterCheckDuplicate checkduplicates=((first_name,last_name)->{
+	    		if(first_name.equals(name)&&last_name.equals(name)) {
+	    			return false;
+	    		}
+	    		return true;
+	    	});
+	    	Boolean toDuplicates = name.entrySet().stream().anyMatch(names->checkduplicates.checkDuplicate(names.getKey(),names.getValue()));
+	        return toDuplicates;
+	    	
+	    }
+        public static void viewCity(String city) {
+	    	dictforcity.entrySet().stream().filter(book->book.getValue().equals(city)).forEach(book->System.out.println(book));
+	    }
+        public static void viewState(String state) {
+        	dictforstate.entrySet().stream().filter(book->book.getValue().equals(state)).forEach(book->System.out.println(book));	
         }
-
-        return null;
-		
-	}
-	
-	public  void editContact() {
-		
-		Contacts contact = findContacts();
-
-        if (contact == null) {
-            System.out.println(" ERROR: No such contact");
-            return;
-        }
-
-        System.out.println(" Contact found! Please enter new details of the contact");
-        addressBookMang.remove(contact);
-        addressBookMang.add(addContact());
-
-    }
-		
-		
-
-	public void deleteContact() {
-		Contacts contact = findContacts();
-
-        if (contact == null) {
-            System.out.println(" not found ");
-            return;
-        }
-
-        addressBookMang.remove(contact);
-        System.out.println(" Contact deleted succesfully");
-	
-		
-	}
-	  public static void display()
-	    {
-
-	        for(Contacts contact : addressBookMang)
-	        {
-	            System.out.println(contact);
-	        }
+        
+	    
+	    public static void display() {
+	    	System.out.println("Enter the name of the address book you want see");
+	    	String name=sc.next();
+	    	if(hashAddressBook.get(name).isEmpty()) {
+	    		System.out.println("this is emty");
+	    		return;
+	    	}
+	    	System.out.println(hashAddressBook.get(name));
+	    	
 	    }
 	
 }

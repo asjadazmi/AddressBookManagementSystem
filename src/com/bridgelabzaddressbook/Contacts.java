@@ -37,7 +37,16 @@ public class Contacts {
 		Contacts.first_name = first_name;
 	}
 	
+	public static String getLast_name() {
+		return last_name;
+	}
 
+	/**
+	 * @param last_name the last_name to set
+	 */
+	public static void setLast_name(String last_name) {
+		Contacts.last_name = last_name;
+	}
 	
 
 	/**

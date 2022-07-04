@@ -4,44 +4,42 @@ import java.util.Scanner;
 
 public class AddressBookMain {
 	public static void main(String[] args) {
-		System.out.println("welcome to the address book problem");
-		AddressBookHash addressBookser=new AddressBookHash();
-		Scanner sc =new Scanner(System.in);
-		int option;
-		while(true) {
-			System.out.println("what operation you want perform\n 1)Add AddressBook\n 2)edit contact\n 3)delete\n4)Display contact\n5) add contact\n5) search by city");
-			option =sc.nextInt();
-			switch(option) {
-			case 1:
-				addressBookser.addAddressBook();
-				break;
-			case 2:
-				addressBookser.editContact();
-				break;
-			case 3:
-				addressBookser.deleteContact();
-				break;
-			case 4:
-				addressBookser.display();
-				break;
-			case 5:
-				addressBookser.addContact();
-			case 6:
-			    System.out.print(" please enter the name of person ");
-                String name = sc.next();
-                System.out.print(" enter to search by city: ");
-                String City = sc.next();
-                System.out.println("please enter state");
-                String state=sc.next();
-                addressBookser.find(name, state, City);
-			default:
-				System.out.println("please enter the correct option");
-			}
-			
-		System.out.println("please keep visiting my website");
-		}
-		
-		
-	}}
-
+		System.out.println("Welcome to addressBook ");
+			Scanner sc=new Scanner(System.in);
+			System.out.println();
+	        while(true) {
+	            System.out.println(" Enter the choice:\n 1. Add Address Book\n 2. Add contacts\n 3. Display contacts\n 4. Edit contact\n 5. Delete Contac\n 6. View by city\n 7.view by state");
+	            int choice = sc.nextInt();
+	        switch(choice) {
+	        case 1:
+	        	AddressBookService.addAddressBook();
+	        	break;
+	        case 2:
+	       	    System.out.println("Enter the address book name");
+	        	String addressBook=sc.next();
+	        	AddressBookService.addContacts(addressBook);
+	        	break;
+	        case 3:
+	        	AddressBookService.display();
+	        	break;
+	        case 4:
+	        	AddressBookService.edit();
+	        case 5:
+	        	AddressBookService.delete();
+	            break;
+	        case 6:
+	        	System.out.println("Enter the city");
+	        	String city=sc.next();
+	        	AddressBookService.viewCity(city);
+	        case 7:
+	        	System.out.println("Enter the state");
+	        	String State=sc.next();
+	        	AddressBookService.viewState(State);
+	        default:
+	        	System.out.println("Enter valid choice");
+	        }
+	        
+	      }
+	    }
+	}
 
