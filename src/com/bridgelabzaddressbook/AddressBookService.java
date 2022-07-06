@@ -64,7 +64,7 @@ public class AddressBookService {
 	    }
 	    listOfContacts =new ArrayList<Contacts>();
 	    listOfContacts.add(contact);
-	    listOfContacts.add(new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email));
+//	    listOfContacts.add(new Contacts(first_name,last_name,Address,city,state,zip,phone_number,email));
         hashAddressBook.put(bookName, listOfContacts);
 	}
 	
